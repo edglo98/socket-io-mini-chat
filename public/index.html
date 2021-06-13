@@ -29,7 +29,7 @@
 
     const socket = io('http://localhost:8080')
 
-    socket.on('welcome-message', ({welcome, msg})=>{
+    socket.on( 'welcome-message', ({welcome, msg})=>{
       $menssagesBox.innerHTML = `
         <li>${welcome}</li>
         <li><small>${msg}</small></li>
