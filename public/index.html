@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel='stylesheet' href='style.css'>
+  <title>Web Socket io</title>
+</head>
+<body>
+  <div class="app-container">
+    <h1 class="title">📱 Mini chat 🤭</h1>
+    <div class="menssages-box">
+      <ul id="menssagesBox">
+        
+      </ul>
+    </div>
+  
+    <form class="form-message" name="myForm" id='formMessage'>
+      <input type="text" name="inputMenssage">
+      <button class="button-send" type="submit">✉️</button>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js" integrity="sha512-iZIBSs+gDyTH0ZhUem9eQ1t4DcEn2B9lHxfRMeGQhyNdSUz+rb+5A3ummX6DQTOIs1XK0gOteOg/LPtSo9VJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    const $menssagesBox = document.querySelector('#menssagesBox')
+    const $formMenssage = document.querySelector('#formMessage')
+
+    const socket = io('http://localhost:8080')
+
+    socket.on('welcome-message', ({welcome, msg})=>{
+      $menssagesBox.innerHTML = `
+        <li>${welcome}</li>
+        <li><small>${msg}</small></li>
+      `
+    })
+
+    socket.on('server-menssage', ({msg})=>{
+      $menssagesBox.innerHTML += `<li><p>${msg}</p></li>`
+    })
+
+    function handleSentMenssage (event) {
+      event.preventDefault()
+      const form = event.target
+      const msg = new FormData(form).get('inputMenssage')
+      
+      socket.emit('client-message', {
+        msg 
+      })
+
+      form.elements['inputMenssage'].value = ''
+    }
+
+    $formMenssage.addEventListener( 'submit', handleSentMenssage )
+
+  </script>
+</body>
+</html>
