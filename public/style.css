@@ -78,6 +78,7 @@ li::before {
   border: 2px solid grey;
   border-radius: 5px;
   padding: 0px 5px;
+  font-size: 16px;
 }
 
 .form-message input[type=text]:focus {
