@@ -27,7 +27,7 @@
     const $menssagesBox = document.querySelector('#menssagesBox')
     const $formMenssage = document.querySelector('#formMessage')
 
-    const socket = io('http://localhost:8080')
+    const socket = io('https://mini-socket-chat.herokuapp.com/')
 
     socket.on( 'welcome-message', ({welcome, msg})=>{
       $menssagesBox.innerHTML = `
@@ -42,9 +42,12 @@
 
     function handleSentMenssage (event) {
       event.preventDefault()
+
       const form = event.target
       const msg = new FormData(form).get('inputMenssage')
       
+      if(msg === '') return
+
       socket.emit('client-message', {
         msg 
       })

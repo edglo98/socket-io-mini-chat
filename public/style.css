@@ -61,7 +61,7 @@ li::before {
   background-color: white;
   height: 85%;
   width: 100%;
-
+  overflow-y: scroll;
 }
 .form-message {
   height: 7%;
@@ -105,4 +105,5 @@ li::before {
   right: 0;
   bottom: 0;
   margin: auto;
+  box-shadow: -3px -3px 25px #000;
 }
