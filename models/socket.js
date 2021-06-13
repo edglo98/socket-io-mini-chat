@@ -13,6 +13,7 @@ class Sockets {
       })
     
       socket.on('client-message', ({msg})=>{
+        console.log(msg)
         this.io.emit('server-menssage', {
           msg
         })  
